@@ -1,17 +1,20 @@
-
-
 import Link from "next/link"
-import { Button } from "../ui/button"
 import { CartButton } from "../cart/cart-button"
+import { LoginAreaButton } from "../login-area/login-area-button"
+import { cookies } from "next/headers"
 
-export const Header = () => {
+export const Header = async () => {
+
+    const cookieStore = await cookies()
+    const token = cookieStore.get('token')
+
     return (
         <header className="container mx-auto my-4 p-5 rounded-md flex items-center justify-between bg-secondary">
             <Link href='/'>
                 <div className="text-2xl font-bold">B7Pizza</div>
             </Link>
             <div className="flex gap-2">
-                <Button>Login / Cadastro</Button>
+                <LoginAreaButton initialState={ token ? true : false }/>
                 <CartButton/>
             </div>
         </header>
